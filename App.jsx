@@ -36,9 +36,12 @@ import {
   GitBranch,
   Layers
 } from 'lucide-react'
+import HubRouter from './HubRouter'
+import EcosystemStatus from './EcosystemStatus'
 import './App.css'
 
 function App() {
+  const [currentView, setCurrentView] = useState('command-center') // 'command-center' or 'hubs'
   const [aiAgents, setAiAgents] = useState([])
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
@@ -46,7 +49,7 @@ function App() {
   const [lastUpdate, setLastUpdate] = useState(new Date())
   const [systemStats, setSystemStats] = useState({
     totalHubs: 12,
-    activeHubs: 1,
+    activeHubs: 6, // Updated: Command Center + 5 operational hubs
     totalAgents: 0,
     activeProjects: 0
   })
@@ -69,61 +72,61 @@ function App() {
       id: 'omnicognitor',
       name: 'OmniCognitor',
       description: 'Multi-platform AI interface and coordination hub',
-      status: 'development',
-      url: '#',
+      status: 'operational',
+      url: 'local-hub',
       icon: Brain,
       color: 'bg-blue-500',
-      agents: 0,
-      lastActive: null,
+      agents: 3,
+      lastActive: new Date(),
       features: ['Multi-AI Platform', 'Cross-platform Chaining', 'Unified Interface']
     },
     {
       id: 'wellness-clinic',
-      name: 'Wellness Clinic',
+      name: 'Wellness Companion',
       description: 'Personal health and wellness management system',
-      status: 'development',
-      url: '#',
+      status: 'operational',
+      url: 'local-hub',
       icon: Heart,
       color: 'bg-pink-500',
-      agents: 0,
-      lastActive: null,
+      agents: 1,
+      lastActive: new Date(),
       features: ['Health Monitoring', 'Wellness Plans', 'AI Health Assistant']
-    },
-    {
-      id: 'telemedicine',
-      name: 'Telemedicine Hub',
-      description: 'Advanced telemedicine and consultation platform',
-      status: 'development',
-      url: '#',
-      icon: Monitor,
-      color: 'bg-purple-500',
-      agents: 0,
-      lastActive: null,
-      features: ['Video Consultations', 'Medical Records', 'Appointment Scheduling']
-    },
-    {
-      id: 'ai-tutor',
-      name: 'AI Tutor System',
-      description: 'Educational AI companion and learning platform',
-      status: 'development',
-      url: '#',
-      icon: Users,
-      color: 'bg-yellow-500',
-      agents: 0,
-      lastActive: null,
-      features: ['Personalized Learning', 'Educational Content', 'Progress Tracking']
     },
     {
       id: 'global-network',
       name: 'Global Network Hub',
       description: 'Worldwide connectivity and collaboration platform',
-      status: 'planning',
-      url: '#',
+      status: 'operational',
+      url: 'local-hub',
       icon: Globe,
       color: 'bg-indigo-500',
-      agents: 0,
-      lastActive: null,
+      agents: 4,
+      lastActive: new Date(),
       features: ['Global Connectivity', 'Cross-border Collaboration', 'Network Analytics']
+    },
+    {
+      id: 'ai-tutor',
+      name: 'AI Tutor System',
+      description: 'Educational AI companion and learning platform',
+      status: 'operational',
+      url: 'local-hub',
+      icon: Users,
+      color: 'bg-yellow-500',
+      agents: 4,
+      lastActive: new Date(),
+      features: ['Personalized Learning', 'Educational Content', 'Progress Tracking']
+    },
+    {
+      id: 'telemedicine',
+      name: 'Telemedicine Hub',
+      description: 'Advanced telemedicine and consultation platform',
+      status: 'operational',
+      url: 'local-hub',
+      icon: Monitor,
+      color: 'bg-purple-500',
+      agents: 2,
+      lastActive: new Date(),
+      features: ['Video Consultations', 'Medical Records', 'Appointment Scheduling']
     }
   ]
 
@@ -219,9 +222,16 @@ function App() {
   }
 
   const openHub = (hub) => {
-    if (hub.url && hub.url !== '#') {
+    if (hub.url === 'local-hub') {
+      setCurrentView('hubs')
+    } else if (hub.url && hub.url !== '#') {
       window.open(hub.url, '_blank')
     }
+  }
+
+  // If we're in hub view, render the HubRouter
+  if (currentView === 'hubs') {
+    return <HubRouter onBackToCommand={() => setCurrentView('command-center')} />
   }
 
   return (
@@ -241,6 +251,13 @@ function App() {
             </div>
             
             <div className="flex items-center space-x-4">
+              <Button 
+                onClick={() => setCurrentView('hubs')}
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                <Layers className="w-4 h-4 mr-2" />
+                Launch Hubs
+              </Button>
               <ConnectionStatusBadge />
               <div className="text-sm text-blue-200">
                 Last update: {lastUpdate.toLocaleTimeString()}
@@ -261,8 +278,9 @@ function App() {
           </div>
         ) : (
           <Tabs defaultValue="overview" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-5 bg-black/20 border-white/10">
+            <TabsList className="grid w-full grid-cols-6 bg-black/20 border-white/10">
               <TabsTrigger value="overview" className="text-white data-[state=active]:bg-blue-600">Overview</TabsTrigger>
+              <TabsTrigger value="status" className="text-white data-[state=active]:bg-blue-600">System Status</TabsTrigger>
               <TabsTrigger value="hubs" className="text-white data-[state=active]:bg-blue-600">Application Hubs</TabsTrigger>
               <TabsTrigger value="agents" className="text-white data-[state=active]:bg-blue-600">AI Agents</TabsTrigger>
               <TabsTrigger value="projects" className="text-white data-[state=active]:bg-blue-600">Projects</TabsTrigger>
@@ -385,6 +403,11 @@ function App() {
                   </div>
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            {/* System Status Tab */}
+            <TabsContent value="status" className="space-y-6">
+              <EcosystemStatus />
             </TabsContent>
 
             {/* Application Hubs Tab */}
