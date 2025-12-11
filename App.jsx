@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { supabase } from './lib/supabase'
+// Firebase integration will be added here
+// import { db } from './lib/firebase'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -172,30 +173,21 @@ function App() {
       setLoading(true)
       setConnectionStatus('connecting')
 
-      // Fetch AI agents
-      const { data: agentsData, error: agentsError } = await supabase
-        .from('ai_agents')
-        .select('*')
-        .order('created_at', { ascending: false })
-
-      if (agentsError) throw agentsError
-
-      // Fetch projects
-      const { data: projectsData, error: projectsError } = await supabase
-        .from('projects')
-        .select('*')
-        .order('created_at', { ascending: false })
-
-      if (projectsError) throw projectsError
-
-      setAiAgents(agentsData || [])
-      setProjects(projectsData || [])
+      // TODO: Replace with Firebase Firestore calls
+      // const projectsRef = collection(db, 'research_projects')
+      // const agentsRef = collection(db, 'ai_agents')
       
-      // Update system stats
+      // Mock data for now - will be replaced with Firebase
+      const mockAgents = []
+      const mockProjects = []
+
+      setAiAgents(mockAgents)
+      setProjects(mockProjects)
+      
       setSystemStats(prev => ({
         ...prev,
-        totalAgents: agentsData?.length || 0,
-        activeProjects: projectsData?.length || 0
+        totalAgents: mockAgents.length,
+        activeProjects: mockProjects.length
       }))
       
       setConnectionStatus('connected')
