@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { Microscope, Database, Users, Zap, Globe, Brain, Activity, TrendingUp } from 'lucide-react';
-import { m2_3mResearchFlow } from './m2-3m-integration';
+import { m2_3mEnhancedFlow } from './m2-3m-backend-integration';
 
 interface ResearchProject {
   id: string;
@@ -79,8 +79,10 @@ export default function M2_3MResearchHub() {
     if (!query.trim()) return;
     
     setLoading(true);
+    setResponse('');
+    
     try {
-      const result = await m2_3mResearchFlow({
+      const result = await m2_3mEnhancedFlow({
         query,
         context: {
           user_id: 'current_user',
@@ -88,10 +90,17 @@ export default function M2_3MResearchHub() {
           priority_level: 'medium'
         }
       });
-      setResponse(result.response);
+      
+      if (result && result.response) {
+        setResponse(result.response);
+      } else {
+        setResponse('🤖 M2-3M: I received your query but encountered an issue processing it. Please try rephrasing your question.');
+      }
     } catch (error) {
-      setResponse('Error processing query. Please try again.');
+      console.error('M2-3M Query Error:', error);
+      setResponse('🔧 M2-3M System: Currently experiencing connectivity issues. Please try again in a moment.');
     }
+    
     setLoading(false);
   };
 
@@ -200,21 +209,38 @@ export default function M2_3MResearchHub() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex gap-4">
-                    <textarea
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Ask M2-3M about research projects, quantum biology analysis, dataset queries, or collaboration opportunities..."
-                      className="flex-1 p-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-300 resize-none"
-                      rows={3}
-                    />
-                    <Button 
-                      onClick={handleQuery} 
-                      disabled={loading || !query.trim()}
-                      className="bg-indigo-600 hover:bg-indigo-700"
-                    >
-                      {loading ? 'Processing...' : 'Ask M2-3M'}
-                    </Button>
+                  <div className="space-y-3">
+                    <div className="flex gap-2">
+                      <textarea
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            handleQuery();
+                          }
+                        }}
+                        placeholder="Generate researcher profile, create media presentation, discuss quantum biology..."
+                        className="flex-1 p-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-300 resize-none"
+                        rows={3}
+                      />
+                      <div className="flex flex-col gap-2">
+                        <Button 
+                          onClick={handleQuery} 
+                          disabled={loading || !query.trim()}
+                          className="bg-indigo-600 hover:bg-indigo-700"
+                        >
+                          {loading ? 'Processing...' : 'Ask M2-3M'}
+                        </Button>
+                        <Button 
+                          onClick={() => { setQuery(''); setResponse(''); }}
+                          variant="outline"
+                          className="border-white/20 text-white hover:bg-white/10"
+                        >
+                          Clear
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                   
                   {response && (
@@ -222,9 +248,9 @@ export default function M2_3MResearchHub() {
                       <CardContent className="pt-4">
                         <div className="flex items-start gap-2">
                           <Brain className="h-5 w-5 text-indigo-400 mt-1" />
-                          <div>
+                          <div className="flex-1">
                             <h4 className="font-medium text-indigo-200 mb-2">M2-3M Response:</h4>
-                            <p className="text-white">{response}</p>
+                            <div className="text-white whitespace-pre-line">{response}</div>
                           </div>
                         </div>
                       </CardContent>

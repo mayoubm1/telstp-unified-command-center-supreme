@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Microscope, Globe, Users, Zap, Brain, Database, TrendingUp, Award } from 'lucide-react';
-import { m2_3mResearchFlow } from './m2-3m-integration';
+import { m2_3mEnhancedFlow } from './m2-3m-backend-integration';
 
 export default function TAWASOLLandingPage() {
   const [query, setQuery] = useState('');
@@ -15,7 +15,7 @@ export default function TAWASOLLandingPage() {
     
     setLoading(true);
     try {
-      const result = await m2_3mResearchFlow({
+      const result = await m2_3mEnhancedFlow({
         query,
         context: {
           user_id: 'tawasol_visitor',
@@ -78,7 +78,7 @@ export default function TAWASOLLandingPage() {
             
             <div className="text-white space-y-6">
               <h2 className="text-4xl font-bold mb-6">Message from the Chairman</h2>
-              <h3 className="text-2xl text-blue-300">Dr Mohamed Hassan Amin</h3>
+              <h3 className="text-2xl text-blue-300">Dr. Mayoub Maatouk</h3>
               
               <div className="space-y-4 text-gray-300 leading-relaxed">
                 <p>

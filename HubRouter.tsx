@@ -165,9 +165,64 @@ const HubRouter: React.FC<HubRouterProps> = ({ onBackToCommand }) => {
             <h3 className="text-xl font-bold text-white mb-2">OMNICOG Future Platform</h3>
             <p className="text-blue-200 mb-4">Ultimate vision platform for humanity's cognitive evolution and consciousness enhancement</p>
             <div className="flex flex-wrap gap-2">
-              <span className="px-2 py-1 bg-gold-600 text-white text-xs rounded">Consciousness</span>
+              <span className="px-2 py-1 bg-yellow-600 text-white text-xs rounded">Consciousness</span>
               <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">Evolution</span>
               <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Singularity</span>
+            </div>
+            <div className="mt-2 text-gray-400 text-sm">⏳ Awaiting Integration</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-50">
+            <h3 className="text-xl font-bold text-white mb-2">Health Tech Frontend</h3>
+            <p className="text-blue-200 mb-4">Advanced healthcare technology interface with modern UI/UX design</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Healthcare UI</span>
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Modern Design</span>
+              <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">Patient Portal</span>
+            </div>
+            <div className="mt-2 text-gray-400 text-sm">⏳ Awaiting Integration</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-50">
+            <h3 className="text-xl font-bold text-white mb-2">Database Maestro</h3>
+            <p className="text-blue-200 mb-4">Advanced database management and orchestration platform</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-indigo-600 text-white text-xs rounded">Database Admin</span>
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Data Analytics</span>
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Performance</span>
+            </div>
+            <div className="mt-2 text-gray-400 text-sm">⏳ Awaiting Integration</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-50">
+            <h3 className="text-xl font-bold text-white mb-2">Unified AI Platform</h3>
+            <p className="text-blue-200 mb-4">Central AI coordination platform for all OMNICOG services</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">AI Orchestration</span>
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Multi-Agent</span>
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Coordination</span>
+            </div>
+            <div className="mt-2 text-gray-400 text-sm">⏳ Awaiting Integration</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-50">
+            <h3 className="text-xl font-bold text-white mb-2">Healthcare Tech Park</h3>
+            <p className="text-blue-200 mb-4">Comprehensive healthcare technology ecosystem and innovation hub</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-red-600 text-white text-xs rounded">Innovation Hub</span>
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Healthcare Tech</span>
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Ecosystem</span>
+            </div>
+            <div className="mt-2 text-gray-400 text-sm">⏳ Awaiting Integration</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-50">
+            <h3 className="text-xl font-bold text-white mb-2">TELsTP Showcase</h3>
+            <p className="text-blue-200 mb-4">Professional showcase platform for TELsTP technologies and achievements</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Showcase</span>
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Portfolio</span>
+              <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">Achievements</span>
             </div>
             <div className="mt-2 text-gray-400 text-sm">⏳ Awaiting Integration</div>
           </div>
