@@ -78,7 +78,7 @@ export default function TAWASOLLandingPage() {
             
             <div className="text-white space-y-6">
               <h2 className="text-4xl font-bold mb-6">Message from the Chairman</h2>
-              <h3 className="text-2xl text-blue-300">Dr. Mayoub Maatouk</h3>
+              <h3 className="text-2xl text-blue-300">Dr. Mohamed Hassan Amin</h3>
               
               <div className="space-y-4 text-gray-300 leading-relaxed">
                 <p>
@@ -187,21 +187,38 @@ export default function TAWASOLLandingPage() {
                     or collaboration opportunities with our 47+ partner institutions.
                   </p>
                   
-                  <div className="flex gap-4">
-                    <textarea
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Ask M2-3M: 'What breakthrough predictions do you have for quantum biology?' or 'Tell me about the global research network'"
-                      className="flex-1 p-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 resize-none"
-                      rows={3}
-                    />
-                    <Button 
-                      onClick={handleM2_3MQuery} 
-                      disabled={loading || !query.trim()}
-                      className="bg-indigo-600 hover:bg-indigo-700 px-8"
-                    >
-                      {loading ? 'Processing...' : 'Ask M2-3M'}
-                    </Button>
+                  <div className="space-y-3">
+                    <div className="flex gap-2">
+                      <textarea
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            handleM2_3MQuery();
+                          }
+                        }}
+                        placeholder="Ask M2-3M: 'What breakthrough predictions do you have for quantum biology?' or 'Tell me about the global research network'"
+                        className="flex-1 p-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 resize-none"
+                        rows={3}
+                      />
+                      <div className="flex flex-col gap-2">
+                        <Button 
+                          onClick={handleM2_3MQuery} 
+                          disabled={loading || !query.trim()}
+                          className="bg-indigo-600 hover:bg-indigo-700 px-8"
+                        >
+                          {loading ? 'Processing...' : 'Ask M2-3M'}
+                        </Button>
+                        <Button 
+                          onClick={() => { setQuery(''); setResponse(''); }}
+                          variant="outline"
+                          className="border-white/20 text-white hover:bg-white/10 px-8"
+                        >
+                          Clear
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                   
                   {response && (
