@@ -1,5 +1,5 @@
 # Message from the Chairman
-## Dr. Ahmed Hassan Al-Mansouri
+## Dr Mohamed Hassan Amin
 
 Dear Visionaries and Pioneers of Scientific Excellence,
 
@@ -29,6 +29,6 @@ The future of science is being written here, at TAWASOL Life Science Park, where
 
 *With profound respect and unwavering commitment to scientific excellence,*
 
-**Dr. Ahmed Hassan Al-Mansouri**  
+**Dr Mohamed Hassan Amin**  
 Chairman, TAWASOL Life Science Park  
 Director, Global Quantum Biology Initiative

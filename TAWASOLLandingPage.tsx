@@ -78,7 +78,7 @@ export default function TAWASOLLandingPage() {
             
             <div className="text-white space-y-6">
               <h2 className="text-4xl font-bold mb-6">Message from the Chairman</h2>
-              <h3 className="text-2xl text-blue-300">Dr. Ahmed Hassan Al-Mansouri</h3>
+              <h3 className="text-2xl text-blue-300">Dr Mohamed Hassan Amin</h3>
               
               <div className="space-y-4 text-gray-300 leading-relaxed">
                 <p>
