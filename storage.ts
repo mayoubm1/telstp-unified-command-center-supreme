@@ -1,3 +1,214 @@
+
+import { randomUUID } from 'crypto';
+
+// Type definitions based on application needs
+
+// User and Authentication
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: 'student' | 'instructor' | 'admin';
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// AI Platform Configuration
+export interface Platform {
+  id: string;
+  name: string;
+  description: string;
+  iconUrl?: string;
+  requiresApiKey: boolean;
+  customJson?: Record<string, any>;
+  createdAt: Date;
+}
+
+// Workspace Management
+export interface Workspace {
+  id: string;
+  name: string;
+  ownerId: string;
+  isPublic: boolean;
+  allowCrossChaining: boolean;
+  settings: Record<string, any>;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Workspace Membership
+export interface WorkspaceMember {
+  id: string;
+  workspaceId: string | null;
+  userId: string | null;
+  role: 'admin' | 'member' | 'guest';
+  permissions: Record<string, any>;
+  joinedAt: Date;
+}
+
+// Conversation and Messaging
+export interface Conversation {
+  id: string;
+  workspaceId: string;
+  userId: string;
+  title: string;
+  startTime: Date;
+  endTime?: Date;
+}
+
+export interface Message {
+  id: string;
+  conversationId: string;
+  authorId: string; // Can be user or platform ID
+  content: string;
+  timestamp: Date;
+  platformId?: string;
+  responseToMessageId?: string;
+  isChained?: boolean;
+  responseTime?: number; // in milliseconds
+}
+
+// Advanced Features: Chaining, Scheduling, Notifications, Metrics
+export interface MessageChain {
+  id: string;
+  workspaceId: string | null;
+  chainOrder: number;
+  sourcePlatformId: string | null;
+  targetPlatformId: string | null;
+  triggerCondition: 'automatic' | 'manual' | 'conditional';
+  isActive: boolean;
+  createdAt: Date;
+}
+
+export interface ScheduledTask {
+  id: string;
+  userId: string | null;
+  workspaceId: string | null;
+  description: string | null;
+  cronExpression: string;
+  taskType: string;
+  taskPayload: Record<string, any>;
+  timezone: string;
+  isActive: boolean;
+  nextExecution: Date | null;
+  lastExecuted: Date | null;
+  executionCount: number;
+  maxExecutions: number | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface TaskExecution {
+  id: string;
+  taskId: string | null;
+  conversationId: string | null;
+  status: 'pending' | 'running' | 'completed' | 'failed';
+  startTime: Date;
+  endTime: Date | null;
+  results: any | null;
+  errors: any | null;
+  responseCount: number;
+  averageResponseTime: number | null;
+  createdAt: Date;
+}
+
+export interface ResponseTimeNotification {
+  id: string;
+  userId: string | null;
+  workspaceId: string | null;
+  platformId: string | null; // null for all platforms
+  thresholdMs: number;
+  isActive: boolean;
+  createdAt: Date;
+}
+
+export interface ResponseMetrics {
+  id: string;
+  messageId: string | null;
+  platformId: string | null;
+  workspaceId: string | null;
+  userId: string | null;
+  responseTimeMs: number;
+  isSuccess: boolean;
+  timestamp: Date;
+}
+
+// Insert types for creating new records
+export type InsertConversation = Omit<Conversation, 'id'>;
+export type InsertMessage = Omit<Message, 'id'>;
+export type InsertPlatform = Omit<Platform, 'id' | 'createdAt'>;
+export type InsertWorkspace = Omit<Workspace, 'id' | 'createdAt' | 'updatedAt'>;
+export type InsertWorkspaceMember = Omit<WorkspaceMember, 'id' | 'joinedAt'>;
+export type InsertMessageChain = Omit<MessageChain, 'id' | 'createdAt'>;
+export type InsertScheduledTask = Omit<ScheduledTask, 'id' | 'createdAt' | 'updatedAt' | 'lastExecuted' | 'nextExecution' | 'executionCount'>;
+export type InsertTaskExecution = Omit<TaskExecution, 'id' | 'createdAt'>;
+export type InsertResponseTimeNotification = Omit<ResponseTimeNotification, 'id' | 'createdAt'>;
+export type InsertResponseMetrics = Omit<ResponseMetrics, 'id' | 'timestamp'>;
+
+class MemStorage {
+  private conversations = new Map<string, Conversation>();
+  private messages = new Map<string, Message>();
+  private platforms = new Map<string, Platform>();
+  private workspaces = new Map<string, Workspace>();
+  private workspaceMembers = new Map<string, WorkspaceMember>();
+  private messageChains = new Map<string, MessageChain>();
+  private scheduledTasks = new Map<string, ScheduledTask>();
+  private taskExecutions = new Map<string, TaskExecution>();
+  private responseTimeNotifications = new Map<string, ResponseTimeNotification>();
+  private responseMetrics = new Map<string, ResponseMetrics>();
+
+  constructor() {
+    // Seed initial data
+    this.createPlatform({ name: 'Genkit', description: 'Google AI Toolkit', requiresApiKey: true });
+  }
+
+  // Conversation operations
+  async createConversation(insertConversation: InsertConversation): Promise<Conversation> {
+    const id = randomUUID();
+    const conversation: Conversation = { ...insertConversation, id };
+    this.conversations.set(id, conversation);
+    return conversation;
+  }
+
+  async getConversations(): Promise<Conversation[]> {
+    return Array.from(this.conversations.values());
+  }
+
+  async getMessagesByConversationId(conversationId: string): Promise<Message[]> {
+    return Array.from(this.messages.values()).filter(
+      (msg) => msg.conversationId === conversationId
+    );
+  }
+
+  // Message operations
+  async createMessage(insertMessage: InsertMessage): Promise<Message> {
+    const id = randomUUID();
+    const message: Message = { ...insertMessage, id };
+    this.messages.set(id, message);
+    return message;
+  }
+
+  // Platform operations
+  async createPlatform(insertPlatform: InsertPlatform): Promise<Platform> {
+    const id = randomUUID();
+    const platform: Platform = {
+      ...insertPlatform,
+      id,
+      createdAt: new Date()
+    };
+    this.platforms.set(id, platform);
+    return platform;
+  }
+  async getPlatform(id: string): Promise<Platform | undefined> {
+    return this.platforms.get(id);
+  }
+
+  // Workspace operations
+  async createWorkspace(insertWorkspace: InsertWorkspace): Promise<Workspace> {
+    const id = randomUUID();
+    const workspace: Workspace = {
+      ...insertWorkspace,
+      ownerId: insertWorkspace.ownerId || '',
       isPublic: insertWorkspace.isPublic ?? false,
       allowCrossChaining: insertWorkspace.allowCrossChaining ?? true,
       settings: insertWorkspace.settings || {},

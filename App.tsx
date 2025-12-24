@@ -1,11 +1,10 @@
-import React from 'react';
-import HubRouter from './HubRouter';
+import M2_3M_WORKING from './M2_3M_WORKING';
 import './index.css';
 
 function App() {
   return (
     <div className="App">
-      <HubRouter onBackToCommand={() => window.location.reload()} />
+      <M2_3M_WORKING />
     </div>
   );
 }

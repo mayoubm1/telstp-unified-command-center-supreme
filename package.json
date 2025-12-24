@@ -2,24 +2,40 @@
   "name": "telstp-unified-command-center",
   "version": "1.0.0",
   "type": "module",
+  "private": true,
+  "workspaces": [
+    "ai-agent-globe",
+    "database-maestro",
+    "digital-ai-globe-bem23",
+    "global-hub-explorer",
+    "health-tech-frontend",
+    "healthcare-education-hub",
+    "manus-registry",
+    "tawasol-life-sciences",
+    "telstp-showcase",
+    "unified-ai-platform",
+    "wellness-hub",
+    "functions"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@genkit-ai/core": "^0.5.17",
+    "@genkit-ai/firebase": "^0.5.17",
+    "@genkit-ai/googleai": "^0.5.17",
     "@supabase/supabase-js": "^2.76.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "lucide-react": "^0.263.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
-    "tailwind-merge": "^1.14.0",
     "express": "^4.18.2",
     "firebase": "^10.7.1",
-    "@genkit-ai/core": "^0.5.0",
-    "@genkit-ai/firebase": "^0.5.0",
-    "@genkit-ai/googleai": "^0.5.0"
+    "lucide-react": "^0.263.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^1.14.0",
+    "zod": "^4.2.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
@@ -29,7 +45,6 @@
     "postcss": "^8.4.27",
     "tailwindcss": "^3.3.0",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
-  },
-  "private": true
+    "vite": "^6.4.1"
+  }
 }

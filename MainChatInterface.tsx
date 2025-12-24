@@ -1,3 +1,163 @@
+
+import { useState, useRef, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
+
+// Mock data and functions - replace with actual API calls and WebSocket logic
+const useWebSocket = (url: string) => {
+  const [messages, setMessages] = useState<any[]>([]);
+  useEffect(() => {
+    // Mock WebSocket connection
+    const interval = setInterval(() => {
+      const platform = ["ChatGPT", "Claude", "Gemini"][Math.floor(Math.random() * 3)];
+      setMessages(prev => [...prev, {
+        type: "platform_response",
+        payload: { platform: { name: platform } }
+      }]);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [url]);
+  return { messages };
+};
+
+const useSendMessage = () => {
+  const [isPending, setIsPending] = useState(false);
+  const mutate = async (data: any) => {
+    setIsPending(true);
+    console.log("Sending message:", data);
+    await new Promise(res => setTimeout(res, 1000));
+    setIsPending(false);
+    return { id: Date.now().toString(), ...data };
+  };
+  return { mutate, isPending };
+};
+
+interface Message {
+  id: string;
+  isUser: boolean;
+  content: string;
+  platform?: {
+    name: string;
+    logo: string;
+  };
+  isChained?: boolean;
+  metadata?: {
+    responseTime?: number;
+  };
+}
+
+interface UploadedFile {
+  originalName: string;
+  size: number;
+}
+
+export function MainChatInterface() {
+  const [message, setMessage] = useState("");
+  const [chatHistory, setChatHistory] = useState<Message[]>([]);
+  const [uploadedFile, setUploadedFile] = useState<UploadedFile | null>(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const { messages: wsMessages } = useWebSocket("ws://localhost:8080");
+  const sendMessageMutation = useSendMessage();
+
+  const handleSend = async () => {
+    if (!message.trim()) return;
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      isUser: true,
+      content: message,
+    };
+
+    setChatHistory((prev) => [...prev, userMessage]);
+
+    await sendMessageMutation.mutate({ 
+      message,
+      file: uploadedFile
+    });
+
+    setMessage("");
+    setUploadedFile(null);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setUploadedFile({ originalName: file.name, size: file.size });
+      // In a real app, you would upload the file here
+    }
+  };
+
+  const removeFile = () => setUploadedFile(null);
+
+  const startRecording = () => setIsRecording(true);
+  const stopRecording = () => setIsRecording(false);
+
+  return (
+    <div className="flex flex-col h-full bg-background">
+      {/* Chat History */}
+      <ScrollArea className="flex-1 p-6">
+        <div className="space-y-6">
+          {/* Example Messages */}
+          <div className="flex items-start space-x-4">
+            <img src="/placeholder-user.jpg" alt="User" className="w-10 h-10 rounded-full" />
+            <div className="space-y-1">
+              <p className="font-semibold">You</p>
+              <Card className="p-3 bg-primary text-primary-foreground">
+                <p className="text-sm">What are the latest advancements in AI-powered drug discovery?</p>
+              </Card>
+            </div>
+          </div>
+          
+          <div className="flex items-start space-x-4">
+            <img src="/placeholder-user.jpg" alt="ChatGPT" className="w-10 h-10 rounded-full" />
+            <div className="flex-1 space-y-1">
+              <div className="flex items-center space-x-2">
+                <p className="font-semibold">ChatGPT</p>
+                <Badge variant="outline" className="text-xs">250ms</Badge>
+              </div>
+              <Card className="p-3">
+                <p className="text-sm whitespace-pre-wrap">
+                  Recent advancements include the use of deep learning for molecular generation, graph neural networks for predicting protein interactions, and large language models for parsing scientific literature. These technologies are significantly accelerating the identification of novel drug candidates and personalizing treatment strategies.
+                </p>
+              </Card>
+            </div>
+          </div>
+          
+          {chatHistory.map((msg) => (
+            <div key={msg.id} className="flex items-start space-x-4">
+              {msg.isUser ? (
+                <img src="/placeholder-user.jpg" alt="User" className="w-10 h-10 rounded-full" />
+              ) : (
+                <img src={msg.platform?.logo || "/placeholder-user.jpg"} alt={msg.platform?.name} className="w-10 h-10 rounded-full" />
+              )}
+              
+              {msg.isUser ? (
+                <div className="space-y-1">
+                  <p className="font-semibold">You</p>
+                  <Card className="p-3 bg-primary text-primary-foreground">
+                    <p className="text-sm">{msg.content}</p>
+                  </Card>
+                </div>
+              ) : (
+                  <div className="flex-1 space-y-1">
+                    <div className="flex items-center space-x-2">
+                      <p className="font-semibold">{msg.platform?.name}</p>
+                      {msg.isChained && (
+                          <Badge variant="secondary" className="text-xs">
+                            Chained
                           </Badge>
                         )}
                         {msg.metadata?.responseTime && (
@@ -13,11 +173,10 @@
                         <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
                       </Card>
                     </div>
-                  </div>
-                )}
+                  )}
               </div>
             ))
-          )}
+          }
           
           {/* Live WebSocket Messages */}
           {wsMessages.map((wsMsg, index) => (
@@ -129,3 +288,9 @@
           <Button variant="ghost" size="sm" data-testid="button-ai-enhance">
             <i className="fas fa-magic mr-1"></i>
             <span className="text-xs">AI Enhance</span>
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -3,13 +3,13 @@
 echo "🚀 Deploying TELsTP Genkit Integration..."
 
 # Install dependencies
-echo "📦 Installing Genkit dependencies..."
-npm install @genkit-ai/core @genkit-ai/firebase @genkit-ai/googleai zod
+echo "📦 Installing Genkey dependencies..."
+npm install --legacy-peer-deps @genkit-ai/core @genkit-ai/firebase @genkit-ai/googleai zod
 
 # Build functions
 echo "🔨 Building Firebase Functions..."
 cd functions
-npm install
+npm install --legacy-peer-deps
 npm run build
 cd ..
 

@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Microscope, Globe, Users, Zap, Brain, Database, TrendingUp, Award } from 'lucide-react';
-import { m2_3mEnhancedFlow } from './m2-3m-backend-integration';
+import { m2_3mFlow } from './lib/m2-3m-genkit';
 
 export default function TAWASOLLandingPage() {
   const [query, setQuery] = useState('');
@@ -15,7 +15,7 @@ export default function TAWASOLLandingPage() {
     
     setLoading(true);
     try {
-      const result = await m2_3mEnhancedFlow({
+      const result = await m2_3mFlow({
         query,
         context: {
           user_id: 'tawasol_visitor',

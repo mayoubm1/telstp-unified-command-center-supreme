@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { Microscope, Database, Users, Zap, Globe, Brain, Activity, TrendingUp } from 'lucide-react';
-import { m2_3mEnhancedFlow } from './m2-3m-backend-integration';
+import { m2_3mFlow } from './lib/m2-3m-genkit';
 
 interface ResearchProject {
   id: string;
@@ -82,7 +82,7 @@ export default function M2_3MResearchHub() {
     setResponse('');
     
     try {
-      const result = await m2_3mEnhancedFlow({
+      const result = await m2_3mFlow({
         query,
         context: {
           user_id: 'current_user',
