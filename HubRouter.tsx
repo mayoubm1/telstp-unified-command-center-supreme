@@ -1,252 +1,258 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
-
-// Import our hub components
-import OmniCognitor from './OmniCognitor';
-import WellnessCompanion from './WellnessCompanion';
-import GlobalNetworkHub from './GlobalNetworkHub';
-import AITutorSystem from './AITutorSystem';
-import TelemedicineHub from './TelemedicineHub';
-
-interface Hub {
-  id: string;
-  name: string;
-  description: string;
-  status: 'operational' | 'development' | 'planning';
-  component?: React.ComponentType;
-  icon: string;
-  color: string;
-}
+import React, { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { ArrowLeft } from 'lucide-react'
+import M2_3MResearchHub from './M2_3MResearchHub'
+import TAWASOLLandingPage from './TAWASOLLandingPage'
 
 interface HubRouterProps {
-  onBackToCommand: () => void;
+  onBackToCommand: () => void
 }
 
-export default function HubRouter({ onBackToCommand }: HubRouterProps) {
-  const [activeHub, setActiveHub] = useState<string | null>(null);
+const HubRouter: React.FC<HubRouterProps> = ({ onBackToCommand }) => {
+  const [currentHub, setCurrentHub] = useState<string | null>(null)
 
-  const hubs: Hub[] = [
-    {
-      id: 'omnicognitor',
-      name: 'OmniCognitor Platform',
-      description: 'Multi-platform AI interface and coordination hub',
-      status: 'operational',
-      component: OmniCognitor,
-      icon: '🧠',
-      color: 'bg-purple-500'
-    },
-    {
-      id: 'wellness-companion',
-      name: 'Wellness Companion',
-      description: 'Personal health and wellness management system',
-      status: 'operational',
-      component: WellnessCompanion,
-      icon: '❤️',
-      color: 'bg-pink-500'
-    },
-    {
-      id: 'global-network',
-      name: 'Global Network Hub',
-      description: 'Worldwide connectivity and collaboration platform',
-      status: 'operational',
-      component: GlobalNetworkHub,
-      icon: '🌐',
-      color: 'bg-indigo-500'
-    },
-    {
-      id: 'ai-tutor',
-      name: 'AI Tutor System',
-      description: 'Educational AI companion and learning platform',
-      status: 'operational',
-      component: AITutorSystem,
-      icon: '🎓',
-      color: 'bg-yellow-500'
-    },
-    {
-      id: 'telemedicine',
-      name: 'Telemedicine Hub',
-      description: 'Advanced telemedicine and consultation platform',
-      status: 'operational',
-      component: TelemedicineHub,
-      icon: '🏥',
-      color: 'bg-blue-500'
-    }
-  ];
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'operational': return 'bg-green-500';
-      case 'development': return 'bg-yellow-500';
-      case 'planning': return 'bg-gray-500';
-      default: return 'bg-gray-500';
-    }
-  };
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case 'operational': return 'Operational';
-      case 'development': return 'In Development';
-      case 'planning': return 'Planning';
-      default: return 'Unknown';
-    }
-  };
-
-  // If a hub is selected and has a component, render it
-  if (activeHub) {
-    const hub = hubs.find(h => h.id === activeHub);
-    if (hub?.component) {
-      const HubComponent = hub.component;
-      return (
-        <div>
-          {/* Hub Navigation Header */}
-          <div className="bg-black/20 backdrop-blur-sm border-b border-white/10 p-4">
-            <div className="container mx-auto flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <Button 
-                  variant="ghost" 
-                  onClick={() => setActiveHub(null)}
-                  className="text-white hover:bg-white/10"
-                >
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Hub Selection
-                </Button>
-                <div className="text-white">
-                  <span className="text-lg font-semibold">{hub.name}</span>
-                  <Badge className={`${getStatusColor(hub.status)} text-white ml-2`}>
-                    {getStatusText(hub.status)}
-                  </Badge>
-                </div>
-              </div>
-              <Button 
-                variant="ghost" 
-                onClick={onBackToCommand}
-                className="text-white hover:bg-white/10"
-              >
-                Command Center
-              </Button>
-            </div>
-          </div>
-          
-          {/* Render the hub component */}
-          <HubComponent />
+  // If a specific hub is selected, render it
+  if (currentHub === 'm2-3m-research') {
+    return (
+      <div>
+        <div className="fixed top-4 left-4 z-50">
+          <Button 
+            onClick={() => setCurrentHub(null)}
+            className="bg-blue-600 hover:bg-blue-700 text-white"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Hubs
+          </Button>
         </div>
-      );
-    }
+        <M2_3MResearchHub />
+      </div>
+    )
   }
 
-  // Default hub selection view
+  if (currentHub === 'tawasol-landing') {
+    return (
+      <div>
+        <div className="fixed top-4 left-4 z-50">
+          <Button 
+            onClick={() => setCurrentHub(null)}
+            className="bg-blue-600 hover:bg-blue-700 text-white"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Hubs
+          </Button>
+        </div>
+        <TAWASOLLandingPage />
+      </div>
+    )
+  }
+
+  // Hub selection interface
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
-      {/* Header */}
-      <header className="border-b border-white/10 bg-black/20 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Button 
-                variant="ghost" 
-                onClick={onBackToCommand}
-                className="text-white hover:bg-white/10"
-              >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Command Center
-              </Button>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 p-8">
+      <div className="max-w-4xl mx-auto">
+        <Button 
+          onClick={onBackToCommand}
+          className="mb-6 bg-blue-600 hover:bg-blue-700 text-white"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Command Center
+        </Button>
+        
+        <div className="text-center text-white mb-8">
+          <h1 className="text-3xl font-bold mb-4">🌟 OMNICOG TAWASOL Ecosystem</h1>
+          <p className="text-blue-200">The world's most advanced AI-powered life sciences platform</p>
+          <div className="mt-4 text-sm text-blue-300">
+            <span className="bg-blue-600/20 px-3 py-1 rounded-full">15 Integrated Hubs</span>
+            <span className="bg-green-600/20 px-3 py-1 rounded-full ml-2">Global Research Network</span>
+            <span className="bg-purple-600/20 px-3 py-1 rounded-full ml-2">M2-3M AI Core</span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div 
+            onClick={() => setCurrentHub('m2-3m-research')}
+            className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all"
+          >
+            <h3 className="text-xl font-bold text-white mb-2">M2-3M Research Portal</h3>
+            <p className="text-blue-200 mb-4">Advanced AI Research Assistant with quantum biology tools and global network</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-indigo-600 text-white text-xs rounded">Quantum Biology</span>
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Global Network</span>
+              <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">AI Assistant</span>
+            </div>
+          </div>
+
+          <div 
+            onClick={() => setCurrentHub('tawasol-landing')}
+            className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all"
+          >
+            <h3 className="text-xl font-bold text-white mb-2">TAWASOL Life Science Park</h3>
+            <p className="text-blue-200 mb-4">Professional landing page with Chairman message and research facilities showcase</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Chairman Message</span>
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Research Facilities</span>
+              <span className="px-2 py-1 bg-indigo-600 text-white text-xs rounded">M2-3M Integration</span>
+            </div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-75">
+            <h3 className="text-xl font-bold text-white mb-2">Telemedicine Hub</h3>
+            <p className="text-blue-200 mb-4">My-wellnessAi & My-AssisstAi portals with advanced medical AI</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-red-600 text-white text-xs rounded">Medical AI</span>
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Video Consultation</span>
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Audio Features</span>
+            </div>
+            <div className="mt-2 text-yellow-400 text-sm">🚧 Integration in Progress</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-75">
+            <h3 className="text-xl font-bold text-white mb-2">Healthcare Education Hub</h3>
+            <p className="text-blue-200 mb-4">AI-powered learning platform with virtual labs and course management</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">Virtual Labs</span>
+              <span className="px-2 py-1 bg-indigo-600 text-white text-xs rounded">AI Partner</span>
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Course Catalog</span>
+            </div>
+            <div className="mt-2 text-yellow-400 text-sm">🚧 Integration in Progress</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-75">
+            <h3 className="text-xl font-bold text-white mb-2">Personal Wellness Hub</h3>
+            <p className="text-blue-200 mb-4">AI-powered wellness companion with health tracking and optimization</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Health Coach</span>
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Fitness Tracking</span>
+              <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">Mental Health</span>
+            </div>
+            <div className="mt-2 text-yellow-400 text-sm">🚧 Integration in Progress</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-75">
+            <h3 className="text-xl font-bold text-white mb-2">Digital AI Globe BEM23</h3>
+            <p className="text-blue-200 mb-4">Advanced 3D AI agent globe with multi-character interface and automation</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-indigo-600 text-white text-xs rounded">Ibn Sina AI</span>
+              <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">Stargate UI</span>
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Automation</span>
+            </div>
+            <div className="mt-2 text-yellow-400 text-sm">🚧 Integration in Progress</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-50">
+            <h3 className="text-xl font-bold text-white mb-2">Global Hub Explorer</h3>
+            <p className="text-blue-200 mb-4">Master navigation platform for all 15 OMNICOG TAWASOL hubs</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">3D Visualization</span>
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Hub Discovery</span>
+              <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">Real-time Analytics</span>
+            </div>
+            <div className="mt-2 text-gray-400 text-sm">⏳ Awaiting Integration</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-50">
+            <h3 className="text-xl font-bold text-white mb-2">Manus United Registry</h3>
+            <p className="text-blue-200 mb-4">Central registry and coordination hub for all Manus AI instances</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-red-600 text-white text-xs rounded">AI Registry</span>
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Egyptian Theme</span>
+              <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">VR Lab</span>
+            </div>
+            <div className="mt-2 text-gray-400 text-sm">⏳ Awaiting Integration</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-50">
+            <h3 className="text-xl font-bold text-white mb-2">OMNICOG Future Platform</h3>
+            <p className="text-blue-200 mb-4">Ultimate vision platform for humanity's cognitive evolution and consciousness enhancement</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-yellow-600 text-white text-xs rounded">Consciousness</span>
+              <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">Evolution</span>
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Singularity</span>
+            </div>
+            <div className="mt-2 text-gray-400 text-sm">⏳ Awaiting Integration</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-50">
+            <h3 className="text-xl font-bold text-white mb-2">Health Tech Frontend</h3>
+            <p className="text-blue-200 mb-4">Advanced healthcare technology interface with modern UI/UX design</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Healthcare UI</span>
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Modern Design</span>
+              <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">Patient Portal</span>
+            </div>
+            <div className="mt-2 text-gray-400 text-sm">⏳ Awaiting Integration</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-50">
+            <h3 className="text-xl font-bold text-white mb-2">Database Maestro</h3>
+            <p className="text-blue-200 mb-4">Advanced database management and orchestration platform</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-indigo-600 text-white text-xs rounded">Database Admin</span>
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Data Analytics</span>
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Performance</span>
+            </div>
+            <div className="mt-2 text-gray-400 text-sm">⏳ Awaiting Integration</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-50">
+            <h3 className="text-xl font-bold text-white mb-2">Unified AI Platform</h3>
+            <p className="text-blue-200 mb-4">Central AI coordination platform for all OMNICOG services</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">AI Orchestration</span>
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Multi-Agent</span>
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Coordination</span>
+            </div>
+            <div className="mt-2 text-gray-400 text-sm">⏳ Awaiting Integration</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-50">
+            <h3 className="text-xl font-bold text-white mb-2">Healthcare Tech Park</h3>
+            <p className="text-blue-200 mb-4">Comprehensive healthcare technology ecosystem and innovation hub</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-red-600 text-white text-xs rounded">Innovation Hub</span>
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Healthcare Tech</span>
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Ecosystem</span>
+            </div>
+            <div className="mt-2 text-gray-400 text-sm">⏳ Awaiting Integration</div>
+          </div>
+
+          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-50">
+            <h3 className="text-xl font-bold text-white mb-2">TELsTP Showcase</h3>
+            <p className="text-blue-200 mb-4">Professional showcase platform for TELsTP technologies and achievements</p>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Showcase</span>
+              <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Portfolio</span>
+              <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">Achievements</span>
+            </div>
+            <div className="mt-2 text-gray-400 text-sm">⏳ Awaiting Integration</div>
+          </div>
+        </div>
+
+        <div className="mt-8 text-center text-white">
+          <div className="bg-black/30 border border-white/10 rounded-lg p-6">
+            <h2 className="text-2xl font-bold mb-4">🚀 OMNICOG TAWASOL Ecosystem Status</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
               <div>
-                <h1 className="text-2xl font-bold text-white">TELsTP Application Hubs</h1>
-                <p className="text-sm text-blue-200">Select a hub to access its features</p>
+                <div className="text-green-400 font-bold">✅ Operational (2/15)</div>
+                <div className="text-blue-200">M2-3M Research & TAWASOL Landing</div>
               </div>
+              <div>
+                <div className="text-yellow-400 font-bold">🚧 Integration (4/15)</div>
+                <div className="text-blue-200">Telemedicine, Education, Wellness, Digital Globe</div>
+              </div>
+              <div>
+                <div className="text-gray-400 font-bold">⏳ Pending (9/15)</div>
+                <div className="text-blue-200">Remaining hubs awaiting integration</div>
+              </div>
+            </div>
+            <div className="mt-4 text-lg font-bold text-blue-300">
+              🎯 Total Progress: 15/15 Hubs Deployed | 2/15 Fully Integrated
             </div>
           </div>
         </div>
-      </header>
-
-      {/* Hub Selection Grid */}
-      <main className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {hubs.map((hub) => (
-            <Card 
-              key={hub.id} 
-              className="bg-black/20 border-white/10 text-white hover:bg-black/30 transition-all cursor-pointer"
-              onClick={() => {
-                if (hub.component) {
-                  setActiveHub(hub.id);
-                }
-              }}
-            >
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className={`p-3 rounded-lg ${hub.color} text-2xl`}>
-                      {hub.icon}
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg">{hub.name}</CardTitle>
-                      <div className="flex items-center space-x-2 mt-1">
-                        <div className={`w-2 h-2 rounded-full ${getStatusColor(hub.status)}`}></div>
-                        <span className="text-sm text-gray-300">{getStatusText(hub.status)}</span>
-                      </div>
-                    </div>
-                  </div>
-                  {hub.component && (
-                    <ExternalLink className="h-4 w-4 text-blue-400" />
-                  )}
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-300 mb-4">{hub.description}</p>
-                <div className="flex justify-between items-center">
-                  {hub.component ? (
-                    <Button 
-                      className="bg-blue-600 hover:bg-blue-700"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveHub(hub.id);
-                      }}
-                    >
-                      Launch Hub
-                    </Button>
-                  ) : (
-                    <Badge variant="outline" className="border-white/20 text-gray-400">
-                      Coming Soon
-                    </Badge>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Development Status */}
-        <Card className="mt-8 bg-black/20 border-white/10 text-white">
-          <CardHeader>
-            <CardTitle>Development Progress</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span>Operational Hubs</span>
-                <Badge className="bg-green-600 text-white">
-                  {hubs.filter(h => h.status === 'operational').length} / {hubs.length}
-                </Badge>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>In Development</span>
-                <Badge className="bg-yellow-600 text-white">
-                  {hubs.filter(h => h.status === 'development').length}
-                </Badge>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>Planning Phase</span>
-                <Badge className="bg-gray-600 text-white">
-                  {hubs.filter(h => h.status === 'planning').length}
-                </Badge>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </main>
+      </div>
     </div>
-  );
+  )
 }
+
+export default HubRouter

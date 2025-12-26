@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { supabase } from './lib/supabase'
+// Firebase integration will be added here
+// import { db } from './lib/firebase'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -49,7 +50,7 @@ function App() {
   const [lastUpdate, setLastUpdate] = useState(new Date())
   const [systemStats, setSystemStats] = useState({
     totalHubs: 12,
-    activeHubs: 6, // Updated: Command Center + 5 operational hubs
+    activeHubs: 8, // Updated: Command Center + 7 operational hubs including TAWASOL + M2-3M
     totalAgents: 0,
     activeProjects: 0
   })
@@ -57,11 +58,35 @@ function App() {
   // Application Hubs Configuration
   const applicationHubs = [
     {
-      id: 'm2-3m',
-      name: 'M2-3M Research Portal',
-      description: 'Advanced research and AI collaboration platform',
+      id: 'tawasol-landing',
+      name: 'TAWASOL Life Science Park',
+      description: 'Professional landing page with Chairman message and research facilities showcase',
       status: 'operational',
-      url: 'https://olnow.vercel.app', // This is the live deployed URL based on user's screenshot
+      url: 'local-hub',
+      icon: Globe,
+      color: 'bg-blue-600',
+      agents: 1,
+      lastActive: new Date(),
+      features: ['Chairman Message', 'Research Facilities', 'M2-3M Integration', 'Global Network']
+    },
+    {
+      id: 'm2-3m-research',
+      name: 'M2-3M Research Portal',
+      description: 'Advanced AI Research Assistant with quantum biology tools and global network',
+      status: 'operational',
+      url: 'local-hub',
+      icon: Microscope,
+      color: 'bg-indigo-500',
+      agents: 15,
+      lastActive: new Date(),
+      features: ['Quantum Biology Analysis', 'Global Research Network', 'Breakthrough Prediction', 'Collaboration Tools']
+    },
+    {
+      id: 'm2-3m-legacy',
+      name: 'M2-3M Legacy Portal',
+      description: 'Original research platform (external deployment)',
+      status: 'operational',
+      url: 'https://olnow.vercel.app',
       icon: Microscope,
       color: 'bg-green-500',
       agents: 15,
@@ -148,30 +173,21 @@ function App() {
       setLoading(true)
       setConnectionStatus('connecting')
 
-      // Fetch AI agents
-      const { data: agentsData, error: agentsError } = await supabase
-        .from('ai_agents')
-        .select('*')
-        .order('created_at', { ascending: false })
-
-      if (agentsError) throw agentsError
-
-      // Fetch projects
-      const { data: projectsData, error: projectsError } = await supabase
-        .from('projects')
-        .select('*')
-        .order('created_at', { ascending: false })
-
-      if (projectsError) throw projectsError
-
-      setAiAgents(agentsData || [])
-      setProjects(projectsData || [])
+      // TODO: Replace with Firebase Firestore calls
+      // const projectsRef = collection(db, 'research_projects')
+      // const agentsRef = collection(db, 'ai_agents')
       
-      // Update system stats
+      // Mock data for now - will be replaced with Firebase
+      const mockAgents = []
+      const mockProjects = []
+
+      setAiAgents(mockAgents)
+      setProjects(mockProjects)
+      
       setSystemStats(prev => ({
         ...prev,
-        totalAgents: agentsData?.length || 0,
-        activeProjects: projectsData?.length || 0
+        totalAgents: mockAgents.length,
+        activeProjects: mockProjects.length
       }))
       
       setConnectionStatus('connected')
