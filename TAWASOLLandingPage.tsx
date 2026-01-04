@@ -78,30 +78,46 @@ export default function TAWASOLLandingPage() {
             
             <div className="text-white space-y-6">
               <h2 className="text-4xl font-bold mb-6">Message from the Chairman</h2>
-              <h3 className="text-2xl text-blue-300">Dr. Mohamed Hassan Amin</h3>
+              <h3 className="text-2xl text-blue-300">Dr Mohamed Hassan Amin</h3>
               
               <div className="space-y-4 text-gray-300 leading-relaxed">
                 <p>
-                  "As we stand at the threshold of a new era in scientific discovery, TAWASOL Life Science Park 
-                  represents more than just a research facility—it embodies humanity's boldest aspirations for 
-                  understanding the very essence of life and consciousness."
+                  Dear Visionaries and Pioneers of Scientific Excellence,
                 </p>
-                
                 <p>
-                  "Through our partnership with 47+ leading international institutions, including MIT, Cambridge, 
-                  and the Max Planck Institute, we have created an unprecedented global research ecosystem that 
-                  enables real-time knowledge sharing and collaborative breakthrough prediction."
+                  As we stand at the threshold of a new era in scientific discovery, TAWASOL Life Science Park represents more than just a research facility—it embodies humanity's boldest aspirations for understanding the very essence of life and consciousness.
                 </p>
-                
+                <h4 className="text-xl font-semibold text-blue-200 pt-4">Our Vision for Tomorrow</h4>
                 <p>
-                  "Our quantum biology laboratories are at the forefront of understanding how quantum mechanical 
-                  phenomena influence biological processes, promising revolutionary advances in medicine, 
-                  biotechnology, and our understanding of consciousness itself."
+                  In the convergence of quantum biology, artificial intelligence, and consciousness research, we are not merely observers of nature’s mysteries—we are active participants in unlocking the fundamental codes that govern existence itself. The M2-3M Advanced Research Assistant, now integrated into our global network, represents a quantum leap in our capability to process, analyze, and synthesize knowledge across the vast spectrum of life sciences.
+                </p>
+                <h4 className="text-xl font-semibold text-blue-200 pt-4">Global Collaboration at Its Finest</h4>
+                <p>
+                  Through our partnership with 47+ leading international institutions, including MIT, Cambridge, and the Max Planck Institute, we have created an unprecedented global research ecosystem. This network enables real-time knowledge sharing, collaborative breakthrough prediction, and the acceleration of discoveries that will benefit all of humanity.
+                </p>
+                <h4 className="text-xl font-semibold text-blue-200 pt-4">The Promise of Quantum Biology</h4>
+                <p>
+                  Our quantum biology laboratories are at the forefront of understanding how quantum mechanical phenomena influence biological processes. From photosynthesis to neural consciousness, we are mapping the quantum foundations of life itself. The implications extend far beyond academic curiosity—they promise revolutionary advances in medicine, biotechnology, and our understanding of consciousness.
+                </p>
+                <h4 className="text-xl font-semibold text-blue-200 pt-4">Commitment to Excellence</h4>
+                <p>
+                  TAWASOL is committed to maintaining the highest standards of scientific rigor while fostering an environment of innovation and discovery. Our researchers work with cutting-edge AI tools, access to global datasets exceeding 47 terabytes, and the support of the world's most advanced research infrastructure.
+                </p>
+                <h4 className="text-xl font-semibold text-blue-200 pt-4">A Future Without Limits</h4>
+                <p>
+                  As we continue to push the boundaries of what is possible, we invite brilliant minds from around the world to join us in this extraordinary journey. Together, we will unlock the secrets of life, consciousness, and the quantum nature of existence.
+                </p>
+                <p>
+                  The future of science is being written here, at TAWASOL Life Science Park, where imagination meets rigorous investigation, and where today's theories become tomorrow's realities.
+                </p>
+                <p className="italic pt-4">
+                  With profound respect and unwavering commitment to scientific excellence,
                 </p>
               </div>
               
               <div className="pt-4">
                 <p className="text-blue-300 font-semibold">
+                  Dr Mohamed Hassan Amin<br/>
                   Chairman, TAWASOL Life Science Park<br/>
                   Director, Global Quantum Biology Initiative
                 </p>
