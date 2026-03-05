@@ -170,7 +170,7 @@ Replace placeholder content in your HTML/React components:
 <!-- Replace existing chairman section with: -->
 <section id="chairman-message">
   <div class="container">
-    <img src="/assets/images/chairman_portrait.png" alt="Dr. Ahmed Hassan Al-Mansouri" class="chairman-photo">
+    <img src="/assets/images/chairman_portrait.png" alt="Dr Mohamed Hassan Amin" class="chairman-photo">
     <div class="message-content">
       <h2>Message from the Chairman</h2>
       <p>Dear Visionaries and Pioneers of Scientific Excellence,</p>

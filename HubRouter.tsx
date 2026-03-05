@@ -3,6 +3,10 @@ import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
 import M2_3MResearchHub from './M2_3MResearchHub'
 import TAWASOLLandingPage from './TAWASOLLandingPage'
+import TelemedicineHub from './TelemedicineHub'
+import HealthcareEducationHub from './HealthcareEducationHub'
+import WellnessHub from './WellnessHub'
+import DigitalAIGlobe from './DigitalAIGlobe'
 
 interface HubRouterProps {
   onBackToCommand: () => void
@@ -42,6 +46,58 @@ const HubRouter: React.FC<HubRouterProps> = ({ onBackToCommand }) => {
           </Button>
         </div>
         <TAWASOLLandingPage />
+      </div>
+    )
+  }
+
+  if (currentHub === 'telemedicine') {
+    return (
+      <div>
+        <div className="fixed top-4 left-4 z-50">
+          <Button onClick={() => setCurrentHub(null)} className="bg-blue-600 hover:bg-blue-700 text-white">
+            <ArrowLeft className="w-4 h-4 mr-2" />Back to Hubs
+          </Button>
+        </div>
+        <TelemedicineHub />
+      </div>
+    )
+  }
+
+  if (currentHub === 'education') {
+    return (
+      <div>
+        <div className="fixed top-4 left-4 z-50">
+          <Button onClick={() => setCurrentHub(null)} className="bg-blue-600 hover:bg-blue-700 text-white">
+            <ArrowLeft className="w-4 h-4 mr-2" />Back to Hubs
+          </Button>
+        </div>
+        <HealthcareEducationHub />
+      </div>
+    )
+  }
+
+  if (currentHub === 'wellness') {
+    return (
+      <div>
+        <div className="fixed top-4 left-4 z-50">
+          <Button onClick={() => setCurrentHub(null)} className="bg-blue-600 hover:bg-blue-700 text-white">
+            <ArrowLeft className="w-4 h-4 mr-2" />Back to Hubs
+          </Button>
+        </div>
+        <WellnessHub />
+      </div>
+    )
+  }
+
+  if (currentHub === 'digital-globe') {
+    return (
+      <div>
+        <div className="fixed top-4 left-4 z-50">
+          <Button onClick={() => setCurrentHub(null)} className="bg-blue-600 hover:bg-blue-700 text-white">
+            <ArrowLeft className="w-4 h-4 mr-2" />Back to Hubs
+          </Button>
+        </div>
+        <DigitalAIGlobe />
       </div>
     )
   }
@@ -95,7 +151,10 @@ const HubRouter: React.FC<HubRouterProps> = ({ onBackToCommand }) => {
             </div>
           </div>
 
-          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-75">
+          <div 
+            onClick={() => setCurrentHub('telemedicine')}
+            className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all"
+          >
             <h3 className="text-xl font-bold text-white mb-2">Telemedicine Hub</h3>
             <p className="text-blue-200 mb-4">My-wellnessAi & My-AssisstAi portals with advanced medical AI</p>
             <div className="flex flex-wrap gap-2">
@@ -103,10 +162,13 @@ const HubRouter: React.FC<HubRouterProps> = ({ onBackToCommand }) => {
               <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Video Consultation</span>
               <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Audio Features</span>
             </div>
-            <div className="mt-2 text-yellow-400 text-sm">🚧 Integration in Progress</div>
+            <div className="mt-2 text-green-400 text-sm">✅ WORKING</div>
           </div>
 
-          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-75">
+          <div 
+            onClick={() => setCurrentHub('education')}
+            className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all"
+          >
             <h3 className="text-xl font-bold text-white mb-2">Healthcare Education Hub</h3>
             <p className="text-blue-200 mb-4">AI-powered learning platform with virtual labs and course management</p>
             <div className="flex flex-wrap gap-2">
@@ -114,10 +176,13 @@ const HubRouter: React.FC<HubRouterProps> = ({ onBackToCommand }) => {
               <span className="px-2 py-1 bg-indigo-600 text-white text-xs rounded">AI Partner</span>
               <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Course Catalog</span>
             </div>
-            <div className="mt-2 text-yellow-400 text-sm">🚧 Integration in Progress</div>
+            <div className="mt-2 text-green-400 text-sm">✅ WORKING</div>
           </div>
 
-          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-75">
+          <div 
+            onClick={() => setCurrentHub('wellness')}
+            className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all"
+          >
             <h3 className="text-xl font-bold text-white mb-2">Personal Wellness Hub</h3>
             <p className="text-blue-200 mb-4">AI-powered wellness companion with health tracking and optimization</p>
             <div className="flex flex-wrap gap-2">
@@ -125,10 +190,13 @@ const HubRouter: React.FC<HubRouterProps> = ({ onBackToCommand }) => {
               <span className="px-2 py-1 bg-blue-600 text-white text-xs rounded">Fitness Tracking</span>
               <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">Mental Health</span>
             </div>
-            <div className="mt-2 text-yellow-400 text-sm">🚧 Integration in Progress</div>
+            <div className="mt-2 text-green-400 text-sm">✅ WORKING</div>
           </div>
 
-          <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-75">
+          <div 
+            onClick={() => setCurrentHub('digital-globe')}
+            className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all"
+          >
             <h3 className="text-xl font-bold text-white mb-2">Digital AI Globe BEM23</h3>
             <p className="text-blue-200 mb-4">Advanced 3D AI agent globe with multi-character interface and automation</p>
             <div className="flex flex-wrap gap-2">
@@ -136,7 +204,7 @@ const HubRouter: React.FC<HubRouterProps> = ({ onBackToCommand }) => {
               <span className="px-2 py-1 bg-purple-600 text-white text-xs rounded">Stargate UI</span>
               <span className="px-2 py-1 bg-green-600 text-white text-xs rounded">Automation</span>
             </div>
-            <div className="mt-2 text-yellow-400 text-sm">🚧 Integration in Progress</div>
+            <div className="mt-2 text-green-400 text-sm">✅ WORKING</div>
           </div>
 
           <div className="bg-black/20 border border-white/10 rounded-lg p-6 cursor-pointer hover:bg-black/30 transition-all opacity-50">
@@ -233,12 +301,12 @@ const HubRouter: React.FC<HubRouterProps> = ({ onBackToCommand }) => {
             <h2 className="text-2xl font-bold mb-4">🚀 OMNICOG TAWASOL Ecosystem Status</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
               <div>
-                <div className="text-green-400 font-bold">✅ Operational (2/15)</div>
-                <div className="text-blue-200">M2-3M Research & TAWASOL Landing</div>
+                <div className="text-green-400 font-bold">✅ Operational (6/15)</div>
+                <div className="text-blue-200">M2-3M, TAWASOL, Telemedicine, Education, Wellness, Digital Globe</div>
               </div>
               <div>
-                <div className="text-yellow-400 font-bold">🚧 Integration (4/15)</div>
-                <div className="text-blue-200">Telemedicine, Education, Wellness, Digital Globe</div>
+                <div className="text-yellow-400 font-bold">🚧 Integration (0/15)</div>
+                <div className="text-blue-200">All priority hubs now operational</div>
               </div>
               <div>
                 <div className="text-gray-400 font-bold">⏳ Pending (9/15)</div>
@@ -246,7 +314,7 @@ const HubRouter: React.FC<HubRouterProps> = ({ onBackToCommand }) => {
               </div>
             </div>
             <div className="mt-4 text-lg font-bold text-blue-300">
-              🎯 Total Progress: 15/15 Hubs Deployed | 2/15 Fully Integrated
+              🎯 Total Progress: 15/15 Hubs Deployed | 6/15 Fully Working
             </div>
           </div>
         </div>

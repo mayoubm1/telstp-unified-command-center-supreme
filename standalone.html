@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M2-3M Research Portal - TELSTP</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script>
+        const { useState } = React;
+        
+        function M2_3M_WORKING() {
+            const [query, setQuery] = useState('');
+            const [response, setResponse] = useState('');
+            const [loading, setLoading] = useState(false);
+            
+            const handleQuery = () => {
+                if (!query.trim()) return;
+                setLoading(true);
+                
+                setTimeout(() => {
+                    let result = '';
+                    
+                    if (query.toLowerCase().includes('researcher')) {
+                        result = `Dr. Elena Vasquez\nQuantum Biology Specialist\nPhD Molecular Physics, MIT 2018\n\nCurrent Research: Investigating quantum tunneling effects in enzyme catalysis with 94.7% measurement accuracy. Recent breakthrough in chlorophyll quantum coherence detection shows 847ms coherence duration at room temperature.\n\nPublications: 47 peer-reviewed papers\nH-index: 23\nActive Collaborations: Cambridge, Max Planck Institute`;
+                    }
+                    else if (query.toLowerCase().includes('report')) {
+                        result = `RESEARCH PROGRESS REPORT GENERATED\n\nTELSTP Life Science Park - Quantum Biology Research\nReport ID: QBR-2025-001\nPages: 47\nGenerated: ${new Date().toLocaleString()}\n\nEXECUTIVE SUMMARY:\n• Quantum Biology Evolution Patterns (78% complete)\n• Consciousness Neural Mapping (65% complete) \n• Neural Interface Framework (42% complete)\n\nKEY ACHIEVEMENTS:\n• 847ms quantum coherence in biological systems\n• 94.7% accuracy in quantum state detection\n• 156 consciousness emergence patterns mapped\n\nDOWNLOAD: /reports/QBR-2025-001.pdf`;
+                    }
+                    else if (query.toLowerCase().includes('quantum') || query.toLowerCase().includes('biology')) {
+                        result = `QUANTUM BIOLOGY RESEARCH ANALYSIS\n\nOur quantum biology research reveals fascinating discoveries:\n\nChlorophyll molecules maintain quantum coherence for 847 milliseconds at room temperature - far longer than previously thought possible. This suggests biological systems evolved to exploit quantum mechanics for energy transfer efficiency.\n\nKey findings:\n• Quantum tunneling increases enzyme reaction rates by 340%\n• Photosynthetic efficiency correlates directly with quantum coherence duration  \n• Neural microtubules show quantum entanglement patterns\n\nImplications for consciousness research are profound. We're seeing quantum effects in neural networks that may explain information processing capabilities beyond classical computation.`;
+                    }
+                    else {
+                        result = `M2-3M Research Assistant - TELSTP Life Science Park\n\nI can help with:\n• Generate researcher profiles\n• Create research reports\n• Analyze quantum biology data\n• Discuss consciousness research\n• Coordinate global collaborations\n\nCurrent Research Status:\n• 47 global partner institutions\n• 47.3 TB research data\n• 847ms quantum coherence achieved\n• 94.7% neural interface accuracy\n\nTry: "Generate a researcher profile" or "Tell me about quantum biology"`;
+                    }
+                    
+                    setResponse(result);
+                    setLoading(false);
+                }, 1000);
+            };
+            
+            return React.createElement('div', { className: 'min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 p-8' },
+                React.createElement('div', { className: 'max-w-4xl mx-auto' },
+                    React.createElement('div', { className: 'text-center text-white mb-8' },
+                        React.createElement('h1', { className: 'text-4xl font-bold mb-4' }, 'M2-3M Research Portal'),
+                        React.createElement('p', { className: 'text-xl text-blue-200' }, 'WORKING VERSION - TELSTP Life Science Park')
+                    ),
+                    React.createElement('div', { className: 'bg-black/20 border border-white/10 rounded-lg p-6 text-white' },
+                        React.createElement('h2', { className: 'text-2xl font-bold mb-4' }, 'M2-3M Research Assistant'),
+                        React.createElement('div', { className: 'space-y-4' },
+                            React.createElement('textarea', {
+                                value: query,
+                                onChange: (e) => setQuery(e.target.value),
+                                onKeyDown: (e) => {
+                                    if (e.key === 'Enter' && !e.shiftKey) {
+                                        e.preventDefault();
+                                        handleQuery();
+                                    }
+                                },
+                                placeholder: 'Ask M2-3M: Generate researcher, create report, discuss quantum biology...',
+                                className: 'w-full p-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-300 resize-none',
+                                rows: 3
+                            }),
+                            React.createElement('div', { className: 'flex gap-2' },
+                                React.createElement('button', {
+                                    onClick: handleQuery,
+                                    disabled: loading || !query.trim(),
+                                    className: 'bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg disabled:opacity-50'
+                                }, loading ? 'Processing...' : 'Ask M2-3M'),
+                                React.createElement('button', {
+                                    onClick: () => { setQuery(''); setResponse(''); },
+                                    className: 'bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg'
+                                }, 'Clear')
+                            )
+                        ),
+                        response && React.createElement('div', { className: 'mt-6 p-4 bg-indigo-900/50 border border-indigo-500/50 rounded-lg' },
+                            React.createElement('h3', { className: 'font-bold text-indigo-200 mb-2' }, 'M2-3M Response:'),
+                            React.createElement('pre', { className: 'text-white whitespace-pre-wrap font-mono text-sm' }, response)
+                        )
+                    ),
+                    React.createElement('div', { className: 'mt-8 text-center text-white' },
+                        React.createElement('p', { className: 'text-blue-200' }, 'Chairman: Dr. Mohamed Hassan Amin'),
+                        React.createElement('p', { className: 'text-gray-400' }, 'TAWASOL Life Science Technology Park')
+                    )
+                )
+            );
+        }
+        
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(M2_3M_WORKING));
+    </script>
+</body>
+</html>

@@ -8,7 +8,8 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path.resolve(import.meta.dirname, "src"),
+      "@": path.resolve(import.meta.dirname, "./"),
+      "@components": path.resolve(import.meta.dirname, "components"),
       "@shared": path.resolve(import.meta.dirname, "shared"),
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
     },
@@ -18,6 +19,8 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
+    host: '0.0.0.0',
+    port: 5173,
     fs: {
       strict: true,
       deny: ["**/.*"],
