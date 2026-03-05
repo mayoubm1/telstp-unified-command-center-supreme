@@ -158,7 +158,7 @@ class OMNICOGIntegrationOrchestrator {
 
   private async establishConnections() {
     // Create WebSocket connections between hubs
-    for (const [hubName, hub] of this.hubs) {
+    for (const hubName of this.hubs.keys()) {
       const ws = new WebSocket(`ws://localhost:${HUB_REGISTRY[hubName].port}`);
       this.connections.set(hubName, ws);
     }
