@@ -1,0 +1,4 @@
+project_id = "vrfyjirddfdnwuffzqhb"
+
+[functions.noura-chat]
+verify_jwt = false
