@@ -1,0 +1,39 @@
+{
+  "version": "1.0.0",
+  "name": "Sovereign Ethical Decision Tree",
+  "nodes": [
+    {
+      "id": "root",
+      "question": "Does the action align with the 8 Billion EGP Vision?",
+      "yes": "impact_check",
+      "no": "deny"
+    },
+    {
+      "id": "impact_check",
+      "question": "Is the impact score >= 5?",
+      "yes": "transparency_check",
+      "no": "escalate"
+    },
+    {
+      "id": "transparency_check",
+      "question": "Is the source data transparent and auditable?",
+      "yes": "approve",
+      "no": "escalate"
+    },
+    {
+      "id": "approve",
+      "resolution": "APPROVE",
+      "description": "Action is ethically sound and vision-aligned."
+    },
+    {
+      "id": "deny",
+      "resolution": "DENY",
+      "description": "Action violates core sovereign principles."
+    },
+    {
+      "id": "escalate",
+      "resolution": "ESCALATE",
+      "description": "Action requires Architect intervention due to complexity."
+    }
+  ]
+}

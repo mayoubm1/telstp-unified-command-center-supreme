@@ -7,12 +7,13 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { createClient } from '@supabase/supabase-js';
 import { aiOrchestrator } from './lib/ai-orchestrator';
+import { SynapseCoordinator } from './lib/omnicognitor/synapses/SynapseCoordinator';
 
 // Master Configuration
 const OMNICOG_CONFIG = {
   ecosystem: 'OMNICOG_TAWASOL_SUPREME',
-  version: '2.0.0',
-  components: 58, // Expanded to full 58-hub vision
+  version: '2.1.0', // Incremented for OmniCognitor logic integration
+  components: 58,
   status: 'SUPREME_INTEGRATION_ACTIVE'
 };
 
@@ -40,8 +41,13 @@ class OMNICOGIntegrationOrchestrator {
   private hubs: Map<string, any> = new Map();
   private connections: Map<string, WebSocket> = new Map();
   private firestore: any;
-  private primarySupabase: any; // dbrxrhjveezxtfwvialj.supabase.co (Sovereign Spine)
-  private projectSupabase: any; // vrfyjirddfdnwuffzqhb.supabase.co (Project Data)
+  private primarySupabase: any;
+  private projectSupabase: any;
+  private synapses: SynapseCoordinator;
+
+  constructor() {
+    this.synapses = SynapseCoordinator.getInstance();
+  }
 
   async initialize() {
     console.log('🚀 OMNICOG TAWASOL Supreme Integration Starting...');
@@ -52,7 +58,7 @@ class OMNICOGIntegrationOrchestrator {
     // 2. Start Hub Integration (The 11 Pillars)
     await this.integrateAllHubs();
     
-    // 3. Establish Neural Synapses (Neural Network Logic)
+    // 3. Establish Neural Synapses (OmniCognitor logic)
     await this.establishNeuralSynapses();
     
     // 4. Activate Living Characters (Hayat, Noura, Gemini)

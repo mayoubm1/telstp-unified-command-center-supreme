@@ -1,0 +1,27 @@
+{
+  "ontology": "TELsEDU-235153",
+  "alignment": "UNESCO SDG 4",
+  "description": "Cross-disciplinary curriculum schema for sovereign education.",
+  "layers": [
+    {
+      "id": "FOUNDATION",
+      "name": "Digital Literacy & Sovereignty",
+      "modules": ["Data Privacy", "Blockchain Basics", "AI Ethics"]
+    },
+    {
+      "id": "QUANTUM",
+      "name": "Bio-Systems & Omics",
+      "modules": ["Genomic Data Analysis", "Molecular Biology", "Quantum Computing"]
+    },
+    {
+      "id": "CREATIVE",
+      "name": "Multimedia & Narrative",
+      "modules": ["Digital Storytelling", "Visual Synthesis", "Acoustic Logic"]
+    }
+  ],
+  "learning_path": {
+    "type": "Neural-Adaptive",
+    "engine": "Gemini-Research-Link",
+    "evaluation": "Pillar-Integrity-Score"
+  }
+}

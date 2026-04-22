@@ -1,0 +1,42 @@
+{
+  "schema": "TELsMED-235153",
+  "version": "1.0.0",
+  "name": "Sovereign Patient Health Record",
+  "description": "HL7 FHIR + TELsTP Neural extensions for the 8 Billion EGP Vision.",
+  "entities": {
+    "Patient": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "format": "uuid" },
+        "sovereignId": { "type": "string", "description": "Decentralized Identifier (DID) representing digital sovereignty." },
+        "status": { "enum": ["active", "suspended", "archived"] },
+        "phi": {
+          "type": "object",
+          "description": "Protected Health Information - Encrypted with Sovereign Master Key.",
+          "properties": {
+            "name": { "type": "string" },
+            "telecom": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "neuralMetrics": {
+          "type": "object",
+          "properties": {
+            "cogscore": { "type": "number", "minimum": 0, "maximum": 100 },
+            "unityAlignment": { "type": "number" }
+          }
+        }
+      },
+      "required": ["sovereignId", "status"]
+    },
+    "Observation": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string", "description": "LOINC code" },
+        "value": { "type": "number" },
+        "unit": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}
